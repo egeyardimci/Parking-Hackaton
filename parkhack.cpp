@@ -14,12 +14,13 @@
 
 using Matrix = std::vector<std::vector<int>>;
 
-std::vector<std::vector<int>> readMatrixFromFile(const std::string& filename, std::pair<int, int> &targetPos, std::string &testDescription) {
+std::vector<std::vector<int>> readMatrixFromFile(const std::string& filename, std::pair<int, int> &targetPos, std::string &testDescription, bool &hasError) {
     std::vector<std::vector<int>> matrix;
     std::ifstream file(filename);
 
     if (!file.is_open()) {
         std::cerr << "Error: Could not open file " << filename << std::endl;
+        hasError = true;
         return matrix;
     }
 
@@ -202,6 +203,7 @@ void programLoop() {
     while (true) {
         int distance;
         std::string testDescription;
+        bool hasError = false;
 
         std::cout << "Please type one of the commands (run-tests,run,visualize,exit): ";
         std::string input;
@@ -218,7 +220,7 @@ void programLoop() {
             for (int i = 1; i < testCount; i++) {
  
                 std::string fileName = "test" + std::to_string(i) + ".txt";
-                matrix = readMatrixFromFile(fileName, targetPos, testDescription);
+                matrix = readMatrixFromFile(fileName, targetPos, testDescription, hasError);
    
 
                result = runTest(matrix, targetPos,distance);
@@ -233,11 +235,12 @@ void programLoop() {
             std::cout << std::endl;
             
             std::pair<int, int> targetPos;
-            Matrix matrix = readMatrixFromFile(fileName, targetPos,testDescription);
-
-            std::pair<int, int> result = runTest(matrix, targetPos,distance);
-            saveMatrix(matrix,distance,result.first,result.second,targetPos.first,targetPos.second,"matrix.txt", testDescription);
-            moveMatrixFile();
+            Matrix matrix = readMatrixFromFile(fileName, targetPos,testDescription,hasError);
+            if (!hasError) {
+                std::pair<int, int> result = runTest(matrix, targetPos, distance);
+                saveMatrix(matrix, distance, result.first, result.second, targetPos.first, targetPos.second, "matrix.txt", testDescription);
+                moveMatrixFile();
+            }
         }
         else if (input == "visualize") {
             openChrome();
