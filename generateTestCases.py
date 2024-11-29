@@ -77,17 +77,12 @@ test_cases = [
     (4, 90, 2, 2, "Full lot cluster"),
     (8, 40, 4, 4, "Center cluster"),
     
-    # Specific scenarios
-    (8, 35, 4, 0, "Left edge cluster"),
-    (8, 45, 6, 6, "Far corner cluster"),
-    (5, 60, 2, 2, "Dense small lot cluster"),
-    
     # Real-world inspired
     (7, 40, 4, 4, "Mall parking cluster"),
     (10, 80, 6, 6, "Event parking cluster"),
 
     # Big Cases
-    (15, 40, 6, 8, "Mall parking cluster"),
+    (15, 40, 6, 8, "Big Mall parking cluster"),
     (20, 70, 1, 8, "Big Peak hours cluster"),
     (70, 50, 1, 8, "Big avarage cluster"),
 

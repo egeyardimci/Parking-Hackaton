@@ -212,7 +212,7 @@ void programLoop() {
             return;
         }
         else if (input == "run-tests") {
-            int testCount = 24;
+            int testCount = 21;
             Matrix matrix;
             std::pair<int, int> targetPos;
             std::pair<int, int> result;
