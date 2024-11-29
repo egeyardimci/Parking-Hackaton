@@ -84,15 +84,16 @@ test_cases = [
     
     # Real-world inspired
     (7, 40, 4, 4, "Mall parking cluster"),
-    (7, 70, 2, 2, "Peak hours cluster"),
     (10, 80, 6, 6, "Event parking cluster"),
 
     # Big Cases
     (15, 40, 6, 8, "Mall parking cluster"),
-    (20, 70, 1, 8, "Peak hours cluster"),
+    (20, 70, 1, 8, "Big Peak hours cluster"),
+    (70, 50, 1, 8, "Big avarage cluster"),
 
     (6, 100, 3, 3, "Completely full lot"),
     (6, 0, 3, 3, "Completely empty lot"),
+    (7, 70, 2, 2, "Peak hours cluster")
 ]
 
 # Generate all test cases

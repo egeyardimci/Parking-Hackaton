@@ -9,7 +9,7 @@
 #define RED "\033[31m"
 #define GREEN "\033[32m"
 #define BLUE "\033[34m"
-#define PURPLE "\033[35m"
+#define YELLOW "\033[33m"
 #define RESET "\033[0m"
 
 using Matrix = std::vector<std::vector<int>>;
@@ -120,7 +120,7 @@ void printColoredMatrix(const Matrix& matrix, int foundSpotRow, int foundSpotCol
                 std::cout << BLUE << matrix[i][j] << " " << RESET;
             }
             else if (i == targetSpotRow && j == targetSpotCol) {
-                std::cout << PURPLE << matrix[i][j] << " " << RESET;
+                std::cout << YELLOW << matrix[i][j] << " " << RESET;
             }
             else if (matrix[i][j] == 1) {
                 std::cout << RED << matrix[i][j] << " " << RESET;
@@ -169,8 +169,8 @@ std::pair<int, int> runTest(Matrix& matrix, std::pair<int, int> &targetPos, int 
 
     printColoredMatrix(matrix, res.first, res.second, targetPos.first,targetPos.second);
 
-    std::cout << "Target parking spot was: " << "(" << targetPos.first << "," << targetPos.second << ")" << std::endl;
-    std::cout << "Best parking spot is: " << "(" << res.first << "," << res.second << "),With distance: " << distance << std::endl << std::endl;
+    std::cout << YELLOW << "Target parking spot was: " << "(" << targetPos.first << "," << targetPos.second << ")" << RESET << std::endl;
+    std::cout << BLUE << "Best parking spot is: " << "(" << res.first << "," << res.second << "),With distance: " << RESET << distance << std::endl << std::endl;
 
     return res;
 }
@@ -210,7 +210,7 @@ void programLoop() {
             return;
         }
         else if (input == "run-tests") {
-            int testCount = 22;
+            int testCount = 24;
             Matrix matrix;
             std::pair<int, int> targetPos;
             std::pair<int, int> result;
