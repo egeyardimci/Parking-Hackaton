@@ -14,11 +14,13 @@
 
 using Matrix = std::vector<std::vector<int>>;
 
-std::vector<std::vector<int>> readMatrixFromFile(const std::string& filename, std::pair<int, int> &targetPos, std::string &testDescription, bool &hasError) {
+std::vector<std::vector<int>> readMatrixFromFile(const std::string &filename, std::pair<int, int> &targetPos, std::string &testDescription, bool &hasError)
+{
     std::vector<std::vector<int>> matrix;
     std::ifstream file(filename);
 
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         std::cerr << "Error: Could not open file " << filename << std::endl;
         hasError = true;
         return matrix;
@@ -37,13 +39,14 @@ std::vector<std::vector<int>> readMatrixFromFile(const std::string& filename, st
 
     std::getline(file, testDescription);
 
-
     std::string line;
-    while (std::getline(file, line)) {
+    while (std::getline(file, line))
+    {
         std::vector<int> row;
         std::istringstream iss(line);
         int value;
-        while (iss >> value) {
+        while (iss >> value)
+        {
             row.push_back(value);
         }
         matrix.push_back(row);
@@ -54,10 +57,10 @@ std::vector<std::vector<int>> readMatrixFromFile(const std::string& filename, st
 }
 
 static std::pair<int, int> findClosestEmptyPoint(
-    const Matrix& matrix,
-    const std::pair<int, int>& target,
-    int& distanceToTarget
-) {
+    const Matrix &matrix,
+    const std::pair<int, int> &target,
+    int &distanceToTarget)
+{
     int rows = matrix.size();
     int cols = matrix[0].size();
 
@@ -69,14 +72,15 @@ static std::pair<int, int> findClosestEmptyPoint(
     std::queue<std::pair<std::pair<int, int>, int>> q;
 
     // Direction arrays for moving up, right, down, left
-    const int dr[] = { -1, 0, 1, 0 };
-    const int dc[] = { 0, 1, 0, -1 };
+    const int dr[] = {-1, 0, 1, 0};
+    const int dc[] = {0, 1, 0, -1};
 
     // Start BFS from target position
-    q.push({ target, 0 });
+    q.push({target, 0});
     visited[target.first][target.second] = true;
 
-    while (!q.empty()) {
+    while (!q.empty())
+    {
         // Get current position and distance
         auto current = q.front();
         int curr_row = current.first.first;
@@ -85,23 +89,26 @@ static std::pair<int, int> findClosestEmptyPoint(
         q.pop();
 
         // If we found an empty spot, this is the closest one (due to BFS)
-        if (matrix[curr_row][curr_col] == 0) {
+        if (matrix[curr_row][curr_col] == 0)
+        {
             distanceToTarget = curr_distance;
-            return { curr_row, curr_col };
+            return {curr_row, curr_col};
         }
 
         // Try all four directions
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++)
+        {
             int new_row = curr_row + dr[i];
             int new_col = curr_col + dc[i];
 
             // Check if new position is valid and not visited
             if (new_row >= 0 && new_row < rows &&
                 new_col >= 0 && new_col < cols &&
-                !visited[new_row][new_col]) {
+                !visited[new_row][new_col])
+            {
 
                 // Add new position to queue with incremented distance
-                q.push({ {new_row, new_col}, curr_distance + 1 });
+                q.push({{new_row, new_col}, curr_distance + 1});
                 visited[new_row][new_col] = true;
             }
         }
@@ -109,24 +116,31 @@ static std::pair<int, int> findClosestEmptyPoint(
 
     // If no empty spot found
     distanceToTarget = -1;
-    return { -1, -1 };
+    return {-1, -1};
 }
 
-void printColoredMatrix(const Matrix& matrix, int foundSpotRow, int foundSpotCol, int targetSpotRow, int targetSpotCol) {
+void printColoredMatrix(const Matrix &matrix, int foundSpotRow, int foundSpotCol, int targetSpotRow, int targetSpotCol)
+{
     int n = matrix.size(); // Get matrix dimension
 
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            if (i == foundSpotRow && j == foundSpotCol) {
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (i == foundSpotRow && j == foundSpotCol)
+            {
                 std::cout << BLUE << matrix[i][j] << " " << RESET;
             }
-            else if (i == targetSpotRow && j == targetSpotCol) {
+            else if (i == targetSpotRow && j == targetSpotCol)
+            {
                 std::cout << YELLOW << matrix[i][j] << " " << RESET;
             }
-            else if (matrix[i][j] == 1) {
+            else if (matrix[i][j] == 1)
+            {
                 std::cout << RED << matrix[i][j] << " " << RESET;
             }
-            else {
+            else
+            {
                 std::cout << GREEN << matrix[i][j] << " " << RESET;
             }
         }
@@ -134,29 +148,37 @@ void printColoredMatrix(const Matrix& matrix, int foundSpotRow, int foundSpotCol
     }
 }
 
-void saveMatrix(const Matrix& matrix, int distance,int foundSpotRow, int foundSpotCol,
-    int targetSpotRow, int targetSpotCol, const std::string& filename, std::string& testDescription) {
+void saveMatrix(const Matrix &matrix, int distance, int foundSpotRow, int foundSpotCol,
+                int targetSpotRow, int targetSpotCol, const std::string &filename, std::string &testDescription)
+{
     std::ofstream outFile(filename);
     outFile << distance << std::endl;
     outFile << testDescription << std::endl;
-    if (!outFile.is_open()) {
+    if (!outFile.is_open())
+    {
         std::cerr << "Error: Could not open file " << filename << std::endl;
         return;
     }
 
     int n = matrix.size();
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            if (i == foundSpotRow && j == foundSpotCol) {
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (i == foundSpotRow && j == foundSpotCol)
+            {
                 outFile << 3 << " ";
             }
-            else if (i == targetSpotRow && j == targetSpotCol) {
+            else if (i == targetSpotRow && j == targetSpotCol)
+            {
                 outFile << 2 << " ";
             }
-            else if (matrix[i][j] == 1) {
+            else if (matrix[i][j] == 1)
+            {
                 outFile << matrix[i][j] << " ";
             }
-            else {
+            else
+            {
                 outFile << matrix[i][j] << " ";
             }
         }
@@ -165,28 +187,32 @@ void saveMatrix(const Matrix& matrix, int distance,int foundSpotRow, int foundSp
     outFile.close();
 }
 
-std::pair<int, int> runTest(Matrix& matrix, std::pair<int, int> &targetPos, int &distance) {
+std::pair<int, int> runTest(Matrix &matrix, std::pair<int, int> &targetPos, int &distance)
+{
     std::pair<int, int> res = findClosestEmptyPoint(matrix, targetPos, distance);
 
-    printColoredMatrix(matrix, res.first, res.second, targetPos.first,targetPos.second);
+    printColoredMatrix(matrix, res.first, res.second, targetPos.first, targetPos.second);
 
     std::cout << YELLOW << "Target parking spot was: " << "(" << targetPos.first << "," << targetPos.second << ")" << RESET << std::endl;
-    std::cout << BLUE << "Best parking spot is: " << "(" << res.first << "," << res.second << "),With distance: " << RESET << distance << std::endl << std::endl;
+    std::cout << BLUE << "Best parking spot is: " << "(" << res.first << "," << res.second << "),With distance: " << RESET << distance << std::endl
+              << std::endl;
 
     return res;
 }
 
-void moveMatrixFile() {
+void moveMatrixFile()
+{
 #ifdef _WIN32
-    system("mkdir web 2> nul");  // Windows
+    system("mkdir web 2> nul"); // Windows
     system("move /Y matrix.txt web\\matrix.txt > nul 2>&1");
 #else
-    system("mkdir -p web");      // Unix/Linux/MacOS
+    system("mkdir -p web"); // Unix/Linux/MacOS
     system("mv matrix.txt web/matrix.txt 2>/dev/null");
 #endif
 }
 
-void openChrome() {
+void openChrome()
+{
 #ifdef _WIN32
     // Windows
     system("start chrome http://localhost:8000 >nul 2>&1");
@@ -199,8 +225,10 @@ void openChrome() {
 #endif
 }
 
-void programLoop() {
-    while (true) {
+void programLoop()
+{
+    while (true)
+    {
         int distance;
         std::string testDescription;
         bool hasError = false;
@@ -208,41 +236,46 @@ void programLoop() {
         std::cout << "Please type one of the commands (run-tests,run,visualize,exit): ";
         std::string input;
         std::cin >> input;
-        if (input == "exit") {
+        if (input == "exit")
+        {
             return;
         }
-        else if (input == "run-tests") {
+        else if (input == "run-tests")
+        {
             int testCount = 21;
             Matrix matrix;
             std::pair<int, int> targetPos;
             std::pair<int, int> result;
 
-            for (int i = 1; i < testCount; i++) {
- 
+            for (int i = 1; i < testCount; i++)
+            {
+
                 std::string fileName = "test" + std::to_string(i) + ".txt";
                 matrix = readMatrixFromFile(fileName, targetPos, testDescription, hasError);
-   
 
-               result = runTest(matrix, targetPos,distance);
+                result = runTest(matrix, targetPos, distance);
             }
-            saveMatrix(matrix,distance , result.first, result.second, targetPos.first, targetPos.second, "matrix.txt", testDescription);
+            saveMatrix(matrix, distance, result.first, result.second, targetPos.first, targetPos.second, "matrix.txt", testDescription);
             moveMatrixFile();
         }
-        else if (input == "run") {
+        else if (input == "run")
+        {
             std::cout << "Please enter the name of input file: ";
             std::string fileName;
             std::cin >> fileName;
             std::cout << std::endl;
-            
+
             std::pair<int, int> targetPos;
-            Matrix matrix = readMatrixFromFile(fileName, targetPos,testDescription,hasError);
-            if (!hasError) {
+            Matrix matrix = readMatrixFromFile(fileName, targetPos, testDescription, hasError);
+            if (!hasError)
+            {
                 std::pair<int, int> result = runTest(matrix, targetPos, distance);
                 saveMatrix(matrix, distance, result.first, result.second, targetPos.first, targetPos.second, "matrix.txt", testDescription);
                 moveMatrixFile();
             }
         }
-        else if (input == "visualize") {
+        else if (input == "visualize")
+        {
             openChrome();
         }
     }
@@ -251,5 +284,4 @@ void programLoop() {
 int main()
 {
     programLoop();
-
 }

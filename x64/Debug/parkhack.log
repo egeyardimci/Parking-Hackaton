@@ -1,9 +1,9 @@
 ﻿  parkhack.cpp
   The contents of <filesystem> are available only with C++17 or later.
-C:\Users\egeya\source\repos\parkhack\parkhack\parkhack.cpp(61,29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\egeya\source\repos\parkhack\parkhack\parkhack.cpp(62,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\egeya\source\repos\parkhack\parkhack\parkhack.cpp(116,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\egeya\source\repos\parkhack\parkhack\parkhack.cpp(147,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\egeya\source\repos\parkhack\parkhack\parkhack.cpp(64,29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\egeya\source\repos\parkhack\parkhack\parkhack.cpp(65,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\egeya\source\repos\parkhack\parkhack\parkhack.cpp(124,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\egeya\source\repos\parkhack\parkhack\parkhack.cpp(163,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   parkhack.vcxproj -> C:\Users\egeya\source\repos\parkhack\x64\Debug\parkhack.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

@@ -1,4 +1,4 @@
-2 2
+-1 -1 
 Sparse lot cluster
 0 0 0 0 0 0
 0 0 0 0 0 0
